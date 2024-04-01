@@ -1,3 +1,8 @@
 wuergwurzel/src/logdetails.log
 wuergwurzel/src/__pycache__/*
 wuergwurzel/src/common/log/__pycache__/*
+**/logdetails.log
+/logdetails.log
+__pycache__/*
+logdetails.log
+wuergwurzel/src/logdetails.log

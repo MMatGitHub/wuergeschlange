@@ -1,19 +1,19 @@
-from .common.log import protokolliere as protokolliere
+from common.log import protokolliere as protokolliere
 
 
 def main():
-    print("i: main()")
-    call(test_highorderfunction)
+    print("i: Starting main() ...")
+    hi(test_highorderfunction)
     # raise NameError('HiThere')
     # raise Exception("test")
 
-def call(func_to_be_called):
-    protokolliere.als().info('Betrete main()')
+def hi(func_to_be_called):
+    protokolliere.als().info('Betrete '+str(func_to_be_called))
     func_to_be_called()
-    protokolliere.als().info('Verlasse main()')
+    protokolliere.als().info('Verlasse '+str(func_to_be_called))
 
 def test_highorderfunction():
-    print('i: Hi order')
+    print('i: Hi order!')
 
 if __name__ == "__main__":
     try:
