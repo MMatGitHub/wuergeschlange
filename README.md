@@ -1,2 +1,2 @@
 # wuergeschlange
-python
+python 3
