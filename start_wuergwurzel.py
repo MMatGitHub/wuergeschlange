@@ -12,8 +12,8 @@ print("i: Appending PYTHONPATH: I " + str(sys.path))
 sys.path.append(".\\wuergwurzel\\src")
 print("i: Adapted PYTHONPATH: II " + str(sys.path))
 
-import wuergwurzel.src.main as start
+import wuergwurzel.src.main as starte
 
 def los():
-    start.main()
+    starte.main()
 los()

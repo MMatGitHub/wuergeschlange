@@ -1,11 +1,10 @@
 from common.log import protokolliere as protokolliere
-
+from common.parallel import multiPool as pool
 
 def main():
     print("i: Starting main() ...")
     hi(test_highorderfunction)
-    # raise NameError('HiThere')
-    # raise Exception("test")
+    #hi(pool.demo_multi_processing)
 
 def hi(func_to_be_called):
     protokolliere.als().info('Betrete '+str(func_to_be_called))
@@ -22,5 +21,3 @@ if __name__ == "__main__":
 
     except Exception as e:
         protokolliere.ok("Schöne Ausnahme: " + str(e))
-
-
