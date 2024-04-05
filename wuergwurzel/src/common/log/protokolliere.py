@@ -16,7 +16,7 @@ import logging
 #  or not be able to continue running properly
 
 # https://gist.github.com/luminoso/b58199813f6763821f6e742a297a1a63
-filename = 'logdetails.log'
+filename = '..\logdetails.log'
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 # create file handler which logs even debug messages

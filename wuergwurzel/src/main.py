@@ -1,8 +1,8 @@
 from common.log import protokolliere as protokolliere
 from common.parallel import multiPool as pool
 
-def main():
-    print("i: Starting main() ...")
+def start():
+    print("i: Starting start() ...")
     hi(test_highorderfunction)
     #hi(pool.demo_multi_processing)
 
@@ -17,7 +17,7 @@ def test_highorderfunction():
 if __name__ == "__main__":
     try:
         print("i: ok ...geht los mit main.main()")
-        main()
+        start()
 
     except Exception as e:
         protokolliere.ok("Schöne Ausnahme: " + str(e))
