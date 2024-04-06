@@ -2,15 +2,15 @@
 requires = ["poetry>=0.9"]
 
 [tool.poetry]
-name = "my_project"
+name = "wuergmich"
 version = "0.1.0"
 description = "This is my python project."
-authors = ["Your Name <your@email.com>"]
+authors = ["Duomilia <your@email.com>"]
 
 readme = 'README.md'
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.10"
 
 [tool.poetry.dev-dependencies]
-pytest = "^3.6"
+pytest = "^3.10"

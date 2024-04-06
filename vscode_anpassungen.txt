@@ -1,0 +1,23 @@
+
+install vscode extension:
+ms-python.python
+
+PRESS SHIFT ENTER on python CODEFILE
+
+bisschen farbe
+"settings": {
+		"terminal.integrated.tabs.defaultColor": "terminal.ansiGreen",
+
+
+instead of STRG+SHIFT+P / Start REPL ? 
+TUT NET!
+Command line: /usr/bin/bash '--init-file' '/app/extra/vscode/resources/app/out/vs/workbench/contrib/terminal/browser/media/shellIntegration-bash.sh'
+
+"wuergeschlange": {
+            "path": [ 
+                "/usr/bin/bash"],
+            "args": [
+                "--init-file",
+                "/var/lib/flatpak/app/com.visualstudio.code/x86_64/stable/13422ba6686a0934f29ba73635745a6779ac2f9853c8d7177b6fd4cc3c595e36/files/extra/vscode/resources/app/out/vs/workbench/contrib/terminal/browser/media/shellIntegration-bash.sh"
+            ]
+        },
