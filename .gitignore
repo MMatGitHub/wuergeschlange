@@ -1,3 +1,6 @@
 logdetails.log
 __pycache__/
 *.pyc
+wuergback/geheim.py
+geheim.py
+*/geheim.py

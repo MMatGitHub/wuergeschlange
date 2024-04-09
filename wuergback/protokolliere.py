@@ -16,7 +16,7 @@ import logging
 #  or not be able to continue running properly
 
 # https://gist.github.com/luminoso/b58199813f6763821f6e742a297a1a63
-filename = '..\logdetails.log'
+filename = 'logdetails.log'
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 # create file handler which logs even debug messages
@@ -37,6 +37,30 @@ logger.addHandler(fh)
 def als():
     return logger
 
+def warn(meldung):
+    return logger.warn(meldung) 
 
-def ok(fehlermeldung):
-    return logger.debug(fehlermeldung) 
+def fehler(meldung):
+    return logger.error(meldung) 
+
+def ausnahme(meldung):
+    return logger.exception(meldung) 
+
+def ok(meldung):
+    return logger.debug(meldung)
+
+def info(meldung):
+    return logger.info(meldung) 
+
+def debug(meldung):
+    return logger.debug(meldung) 
+
+def zeilenweise(msg):
+    #funktioniert nicht sooo gut!
+    temp = str(msg)
+    temparray = temp.split('\\n')
+    retVal=""
+    for o in temparray:
+        retVal = retVal + o + "\n"
+    
+    return logger.debug(retVal) 
