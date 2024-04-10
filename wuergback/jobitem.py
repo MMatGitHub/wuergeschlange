@@ -1,20 +1,23 @@
 import time
-import geheim
+import fileio
 class Jobitem:
     prg: str = "C:\\Users\\itbc000133\\AppData\\Local\\LOCALHOME\\repos\\no_upstream\\c_ae\\SYS\\portable\\7-ZipPortable\\App\\7-Zip64\\7z.exe"
-    geheim: str = geheim.get_geheim()
+    prg_copy: str = "Robocopy.exe"
+    geheim: str = fileio.slurp("C:\\Users\\itbc000133\\AppData\\Local\\LOCALHOME\\repos\\upcshare_sec\\mima\\_ssh_geheim_pass\\wuergback.txt")
     quelle: str = "C:\\Temp\\test"
     ziel: str = "C:\\Temp\\backup"
     paketname: str = "testpaketname"
     paketendung: str = ".7z"
-    archiv: str ="H:\_backup\quelle=RN049932\cae"
-    zeitstempel: str = str(time.localtime(time.time()).tm_hour)+"-"+str(time.localtime(time.time()).tm_min)+"-"+str(time.localtime(time.time()).tm_sec)
+    archiv: str ="H:\\_backup\\quelle=RN049932\\cae"
+    zeitstempel: str
 
     def __init__(self, quelle, ziel, paketname):
         self.quelle = quelle 
         self.ziel = ziel 
         self.paketname = paketname
-    
+        dieZeit=time.localtime(time.time())
+        self.zeitstempel=str(time.strftime("%Y.%m.%d_%H-%M-%S", time.localtime()))
+        # debug raise NameError (str(paketname))
     def getPrg(self) -> str:
         return self.prg
     
@@ -23,9 +26,12 @@ class Jobitem:
 
     def getZielpaket(self) -> str:
         return self.ziel + "\\" + self.paketname + "_" + self.zeitstempel + self.paketendung
-   
+
+    def getZielpaketfilename(self) -> str:
+        return self.paketname + "_" + self.zeitstempel + self.paketendung
+    
     def getArchivpaket(self) -> str:
         return self.archiv + "\\" + self.paketname + self.paketendung
     
-      
-
+    def getArchivpaketfilename(self) -> str:
+        return self.paketname + self.paketendung

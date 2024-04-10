@@ -17,14 +17,14 @@ class Job:
 def zip(jobs):
     i=1
     for j in jobs:
-        protokolliere.debug("i: Job(" + str(i) + "):")
+        protokolliere.debug(f"i: Starte Jobs({i}):")
         protokolliere.debug(getattr(j, 'args'))
         i = i + 1
     protokolliere.warn("i: Beginne mit dem zippen...")
     results = warte_auf_alle_jobs(jobs)
     i=1
     for r in results:
-        protokolliere.debug("i: Job(" + str(i) + "):")
+        protokolliere.debug(f"i: Finished Job({i}):")
         i=i+1
         protokolliere.info(r)
     protokolliere.warn("i: Beende das gezippe...")
@@ -43,13 +43,11 @@ def zipwork_test():
     return Job(func=zipwork, args=(ji,'a','-p','-ssw','nullkommanix'))
 
 def compose_zip_jobs():
-
-
     jobs = [
             #get_work_mit_fehlern_job(),
             #get_testwork_job(),
             zipwork_test(),
-            #Job(func=testwork, item=(ji), args=(eins, zwei, drei , vier, fuenf)), 
+            # Job(func=testwork, item=(ji), args=(eins, zwei, drei , vier, fuenf)), 
             # Job(func=realwork, args=(arg1, arg2)),
     ]
     return zip(jobs)

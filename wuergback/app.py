@@ -16,7 +16,8 @@ def testefunctions():
     protokolliere.debug (teste_my_command.test_dir_temp())
 
 def los():
-   compose_futurejobs()
+    protokolliere.info ("i: Willkommen beim Wuergback - Starte BACKUP")
+    compose_futurejobs()
 
 if __name__ == '__main__':
     # selbsttest()
