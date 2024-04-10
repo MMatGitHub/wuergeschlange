@@ -27,7 +27,7 @@ def zip(jobs):
         protokolliere.debug(f"i: Finished Job({i}):")
         i=i+1
         protokolliere.info(r)
-    protokolliere.warn("i: Beende das gezippe...")
+    protokolliere.warn("i: Beende das backup...")
     return results
 
 def get_work_mit_fehlern_job():
@@ -42,12 +42,14 @@ def zipwork_test():
     ji = Jobitem("C:\\Temp\\pmet", "C:\\Temp\\pukcab", "Paket_pmet2")
     return Job(func=zipwork, args=(ji,'a','-p','-ssw','nullkommanix'))
 
+def sichere_multi():
+    multi= ["C:\\Temp\\out", "C:\\Temp\\in"]
+    ji = Jobitem("C:\\Temp\\pmet", "C:\\Temp\\pukcab" , "Multi_paket", multi)
+    return Job(func=zipwork, args=(ji,'a','-p','-t7z','-r'))
+
 def compose_zip_jobs():
     jobs = [
-            #get_work_mit_fehlern_job(),
-            #get_testwork_job(),
-            zipwork_test(),
-            # Job(func=testwork, item=(ji), args=(eins, zwei, drei , vier, fuenf)), 
-            # Job(func=realwork, args=(arg1, arg2)),
+            #zipwork_test(),
+            sichere_multi(),
     ]
     return zip(jobs)
