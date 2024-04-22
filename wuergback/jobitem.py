@@ -1,6 +1,8 @@
 import time
 import fileio
 from typing import List
+import protokolliere
+from konst import KONST
 
 class Jobitem:
     prg: str = "C:\\Users\\itbc000133\\AppData\\Local\\LOCALHOME\\repos\\no_upstream\\c_ae\\SYS\\portable\\7-ZipPortable\\App\\7-Zip64\\7z.exe"
@@ -9,17 +11,26 @@ class Jobitem:
     ziel: str = "C:\\Temp\\backup"
     paketname: str = "testpaketname"
     paketendung: str = ".7z"
-    archiv: str ="H:\\_backup\\quelle=RN049932\\cae"
+    archiv: str =KONST.BACKUP_TARGET
     zeitstempel: str
     multiquellfolder: List[str]
 
     def __init__(self, quelle, ziel, paketname, multiquellfolder):
-        self.quelle = quelle 
-        self.ziel = ziel 
-        self.paketname = paketname
-        self.multiquellfolder = multiquellfolder
-        self.zeitstempel=str(time.strftime("%Y.%m.%d_%H-%M-%S", time.localtime()))
-        # debug raise NameError (str(paketname))
+        try:
+            if quelle == None: 
+                if multiquellfolder == None: 
+                    quelle = str(KONST.LOCALHOME +"\\"+ paketname)
+                else:
+                    quelle=multiquellfolder.pop(0)
+            if ziel == None: ziel = str(KONST.LOCALHOME +"\\")
+            self.quelle = quelle 
+            self.ziel = ziel 
+            self.paketname = paketname
+            self.multiquellfolder = multiquellfolder
+            self.zeitstempel=str(time.strftime("%Y.%m.%d_%H-%M-%S", time.localtime()))
+        except:
+           protokolliere.fehler(str("Jobitem nicht initialisiert" + paketname))
+        
     def getPrg(self) -> str:
         return self.prg
     
