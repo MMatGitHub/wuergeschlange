@@ -2,12 +2,17 @@ import time
 import os
 
 def do():
+    i=0
     while True:
         t = time.localtime()
         current_time = time.strftime("%H:%M:%S", t)
         print(f"alive and kiccking {current_time}")
         time.sleep(3)
+        i=i+1
         printlogfilesize()
+        if (i>2):
+            break
+    return "Abbruch durch Hasso :-)"
 
 def get_human_readable_size(size_bytes):
     """

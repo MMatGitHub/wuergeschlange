@@ -13,7 +13,7 @@ def get_jobs():
     job_names.append(watchdog)
     return job_names
 
-def konstruktor(dings, wert, algo):
-    dings.mit=wert
-    dings.algorithmus=algo
-    return dings
+#def konstruktor(dings, wert, algo):
+#    dings.mit=wert
+#    dings.algorithmus=algo
+#    return dings
