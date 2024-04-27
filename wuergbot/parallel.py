@@ -1,51 +1,38 @@
 import multiprocessing
 import time
 import prozess0
+import prozess1
+import prozess2
 
-def nutzerschnittstelle(p1, p2):
+def nutzerschnittstelle(process_list):
     try:
         while True:
             interrupt = input("Interrupt? (yes/no): ")
             if interrupt.lower() == "yes":
-                p1.terminate()
-                p2.terminate()
+                # Send termination signal to processes
+                for process in process_list:
+                    process.terminate()
                 break
-
-            time.sleep(60)
     except KeyboardInterrupt:
-        p1.terminate()
-        p2.terminate()
+        for process in process_list:
+            process.terminate()
 
 if __name__ == "__main__":
     multiprocessing.set_start_method('spawn')
-    prozess0_handle = multiprocessing.Process(target=prozess0.starte)
-    prozess0_handle.start()
     
-    # Get process handles
-    p1_handle = prozess0.get_prozess1_handle()
-    p2_handle = prozess0.get_prozess2_handle()
+    # Create a multiprocessing Manager to manage the list
+    manager = multiprocessing.Manager()
+    process_list = manager.list()
     
-    # Start user interface
-    nutzerschnittstelle(p1_handle, p2_handle)
+    # Start process 0
+    p0_handle = multiprocessing.Process(target=prozess0.verarbeite)
+    p1_handle = multiprocessing.Process(target=prozess1.verarbeite)
+    p2_handle = multiprocessing.Process(target=prozess2.verarbeite)
+    process_list.append(p1_handle)
+    process_list.append(p2_handle)
 
+    p0_handle.start(p0_handle)
 
-#def nutzerschnittstelle(p1, p2):
-#    try:
-#        while True:
-#            interrupt = input("Interrupt? (yes/no): ")
-#            if interrupt.lower() == "yes":
-#                p1.terminate()
-#                p2.terminate()
-#                break
-#
-#            time.sleep(60)
-#    except KeyboardInterrupt:
-#        p1.terminate()
-#        p2.terminate()
-
-
-#if __name__ == "__main__":
-#    multiprocessing.set_start_method('spawn')
-#    prozess0_handle = multiprocessing.Process(target=prozess0)
-#    prozess0_handle.start()
-#    nutzerschnittstelle(get_prozess1_handle(), get_prozess2_handle())
+    process_list.append(p0_handle)  # Store process handle in the list
+    
+    nutzerschnittstelle(process_list, p1_handle, p2_handle)
