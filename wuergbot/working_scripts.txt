@@ -48,4 +48,51 @@ if __name__ == "__main__":
 #    multiprocessing.set_start_method('spawn')
 #    prozess0_handle = multiprocessing.Process(target=prozess0)
 #    prozess0_handle.start()
-#    nutzerschnittstelle(get_prozess1_handle(), get_prozess2_handle())
+#    nutzerschnittstelle(get_prozess1_handle(), get_prozess2_handle())import multiprocessing
+import time
+import prozess1
+import prozess2
+
+def monitoring(p1, p2):
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        p1.terminate()
+        p2.terminate()
+
+def get_prozess1_handle():
+    return intern_eorhenGeinfkLjf   
+
+def get_prozess2_handle():
+    return intern_ipenOoeonPPioiw   
+
+def starte():
+    prozess1_handle = get_prozess1_handle()
+    prozess2_handle = get_prozess2_handle()
+    prozess1_handle.start()
+    prozess2_handle.start()
+    monitoring(prozess1_handle, prozess2_handle)
+
+intern_eorhenGeinfkLjf=multiprocessing.Process(target=prozess1.verarbeite)
+intern_ipenOoeonPPioiw=multiprocessing.Process(target=prozess2.verarbeite)
+if __name__ == "__main__":
+    starte()
+import time
+import os
+
+def verarbeite():
+    while True:
+        os.system("ls /")
+        
+if __name__ == "__main__":
+    verarbeite()
+import time
+import os
+
+def verarbeite():
+    while True:
+        os.system("ping google -c 6000")
+
+if __name__ == "__main__":
+    verarbeite()
