@@ -1,8 +1,8 @@
 mit = None
 algorithmus = None
-
+import protokolliere
 def do():
-   print(f"i: executing algorithmus [{mit}] ...")
+   protokolliere.info(f"i: executing algorithmus [{mit}] ...")
    algorithmus(mit)
    return f"i: executed algorithmus [{mit}]" 
 

@@ -1,12 +1,12 @@
 import time
 import os
-
+import protokolliere
 def do():
     i=0
     while True:
         t = time.localtime()
         current_time = time.strftime("%H:%M:%S", t)
-        print(f"alive and kiccking {current_time}")
+        protokolliere.info(f"alive and kiccking {current_time}")
         time.sleep(3)
         i=i+1
         printlogfilesize()
@@ -15,9 +15,6 @@ def do():
     return "Abbruch durch Hasso :-)"
 
 def get_human_readable_size(size_bytes):
-    """
-    Convert size in bytes to human-readable format
-    """
     if size_bytes == 0:
         return "0B"
 
@@ -37,9 +34,9 @@ def printlogfilesize():
     file_path = "./wuerglog.log" 
     if os.path.exists(file_path):
         file_size = os.path.getsize(file_path)
-        print(f"Dateigroesse: {get_human_readable_size(file_size)} ({file_size} bytes)")
+        protokolliere.info(f"Dateigroesse: {get_human_readable_size(file_size)} ({file_size} bytes)")
     else:
-        print("i: File does not exist.")
+        protokolliere.info("i: File does not exist.")
 
 
 

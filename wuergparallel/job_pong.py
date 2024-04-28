@@ -8,3 +8,5 @@ def getDefinition():
 
 def do():
     getDefinition().do()
+    print(f"i: {__name__} beendet")
+    return f"Ende von {__name__}"
