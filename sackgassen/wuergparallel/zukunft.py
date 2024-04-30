@@ -28,15 +28,16 @@ def combine_with_watchdog(job_futures, hasso):
         protokolliere.info('i: Beendet! Hasso hat aufgepasst!')
     
     i=0
-    
     for future in job_futures:
         if not future.done():
             protokolliere.info(f"i: future {i} wird abgebrochen...")
             future.cancel()
-        protokolliere.info(f"i: future {i} bereits beendet.")
+            protokolliere.info("future lief noch:", future._callable_name)
+            protokolliere.info(f"i: future {i} wurde beendet.")
+        else:
+            protokolliere.info(f"future war {i} bereits beendet:")
         i=i+1
         results.append(future.result())
-
     return results
 
     # If the watchdog triggered, cancel all remaining job futures
