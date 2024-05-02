@@ -3,21 +3,47 @@ import os
 import protokolliere
 import datetime
 import typcheck
-import concurrent.futures
-def do(wieoft):
-    i=0
-    start_time = datetime.datetime.now() # Record the current time as the starting point
-    while not concurrent.futures.Future.cancelled():
-        t = time.localtime()
-        current_time = time.strftime("%H:%M:%S", t)
-        protokolliere.info(f"alive and kicking {current_time}")
-        time.sleep(1)
-        i=i+1
-        printlogfilesize("./roboter.log")
-        if (i>wieoft):
-            dauer = datetime.datetime.now() - start_time # Calculate the time difference
-            #raise RuntimeError(f"i: Abbruch durch Hasso! Wachte {dauer.total_seconds()} Sek. Jetzt ist gut. :-)")
-            return(f"i: Abbruch durch Hasso! Wachte {dauer.total_seconds()} Sek. Jetzt ist gut. :-)")
+import threading
+
+def do(event, queue):
+    try:
+        what="Hasso"
+        gestartet = datetime.datetime.now()
+        seit = lambda t: (datetime.datetime.now() - t).total_seconds()
+        jetzt  = lambda : (time.strftime("%H:%M:%S", time.localtime()))
+        protokolliere.info(f"Task {what} gestartet...")
+        wielange=5.0
+        timer_thread = threading.Thread(target=timer_task, args=(event, wielange,))
+        timer_thread.start()
+        protokolliere.info(f"Task {what} passt auf für {wielange} sec ...")
+
+
+        i=0
+        while True:
+            i=i+1
+            event.wait(1.0)
+            if event.is_set():
+                protokolliere.info(f"Task {what} Abbruch-Event received")
+                break
+            #time.sleep(1)
+            protokolliere_logfilesize("./roboter.log")
+            protokolliere.info(f"Passe weiter {i} auf {jetzt()}...")
+        protokolliere.info(f"Task {what} completed without erros.")
+    except Exception as e:
+        queue.put(f"Fehler: {e}") 
+    finally:
+        protokolliere.info(f"Feierabend! Wachte {seit(gestartet)} Sek. Gehe wieder in meine Hütte. Bis zum nächsten Mal. :-)")
+        queue.put(f"Task {what} beendet. Dauer: {seit(gestartet)} sec")
+        event.set()
+
+
+
+def timer_task(event, duration):
+    time.sleep(duration)
+    event.set()
+    protokolliere.info(f"WUFF: Abbruch - Alarm - Alles wird abgebrochen: Das sollte nur max. {duration} sec. dauern!")
+
+
 
 def get_human_readable_size(size_bytes):
     if size_bytes == 0:
@@ -35,7 +61,7 @@ def get_human_readable_size(size_bytes):
     # Format the size with the appropriate unit
     return "{:.2f} {}".format(size_bytes, units[unit_index])
 
-def printlogfilesize(logfilename):
+def protokolliere_logfilesize(logfilename):
     file_path = typcheck.verified_filepath(logfilename)
     if os.path.exists(file_path):
         file_size = os.path.getsize(file_path)
@@ -44,4 +70,4 @@ def printlogfilesize(logfilename):
         protokolliere.info("i: File does not exist.")
 
 if __name__ == "__main__":
-    printlogfilesize("./roboter.log")
+    protokolliere_logfilesize("./roboter.log")
