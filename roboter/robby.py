@@ -2,24 +2,35 @@
 import time
 import protokolliere
 import datetime
-import concurrent.futures
+import mousemover_xdo
+import os_weiche
+#import sys
 
-def do(wielange):
-
-    protokolliere.info(f"__name__ gestartet...")
-    end_time = time.time() + wielange
-    
-    start_time = datetime.datetime.now() # Record the current time as the starting point
-    wieoft = 3
-
-    while not concurrent.futures.Future.cancelled():       
-        protokolliere.info(f"__name__ is moving...")
-        time.sleep(1)
-        wieoft = wieoft -1
-        if wieoft<1:
-            break
-    dauer = datetime.datetime.now() - start_time 
-    
-    #raise RuntimeError(f"i: Robby arbeitete {dauer.total_seconds()} Sek.Robby sollte {wielange} sec arbeiten.")
-    
-    return f"i: Robby arbeitete {dauer.total_seconds()} Sek.Robby sollte {wielange} sec arbeiten."
+def do(event, queue):
+    try:
+        isWin=(os_weiche.get_os()==os_weiche.is_win_nt)
+        what="Task: robby-spielt-mit-der-Maus"
+        gestartet = datetime.datetime.now()
+        seit = lambda t: (datetime.datetime.now() - t).total_seconds()
+        jetzt  = lambda : (time.strftime("%H:%M:%S", time.localtime()))
+        protokolliere.logfile(f"{what} gestartet...")
+        i=0
+        while True:
+            i=i+1
+            event.wait(1.0)
+            if event.is_set():
+                protokolliere.logfile(f"{what} Abbruch-Event received")
+                break
+            if (isWin):
+                protokolliere.logfile(f"Win is to be implemented!")
+            else:    
+                mousemover_xdo.move_mouse()
+            time.sleep(1)
+            protokolliere.logfile(f"Schubse weiter {i} auf {jetzt()}...")
+        protokolliere.logfile(f"{what} completed without erros.")
+    except Exception as e:
+        queue.put(f"Fehler: {e}") 
+    finally:
+        protokolliere.logfile(f"Feierabend! Wachte {seit(gestartet)} Sek. Gehe wieder in meine Hütte. Bis zum nächsten Mal. :-)")
+        queue.put(f"Task {what} beendet. Dauer: {seit(gestartet)} sec")
+        event.set()

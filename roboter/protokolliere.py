@@ -1,5 +1,5 @@
 import logging
-
+import os
 # https://www.logicmonitor.com/blog/python-logging-levels-explained
 # Notset = 0: This is the initial default setting of a log when it is created.
 #  It is not really relevant and most developers will not even take notice of
@@ -16,7 +16,13 @@ import logging
 #  or not be able to continue running properly
 
 # https://gist.github.com/luminoso/b58199813f6763821f6e742a297a1a63
-filename = 'roboter.log'
+def get_os_compatible_filename_in_current_dir(filename):
+    if os.name == 'nt':  # Windows
+        return ".\\" + filename
+    else:  # Linux or other Unix-like systems
+        return "./" + filename
+    
+filename = get_os_compatible_filename_in_current_dir('roboter.log')
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 # create file handler which logs even debug messages
@@ -44,7 +50,7 @@ def fehler(meldung):
     return logger.error(meldung) 
 
 def ausnahme(meldung):
-    return logger.exception(meldung) 
+    return logger.exception(f"Exception: {meldung}") 
 
 def ok(meldung):
     return logger.debug(meldung)
@@ -55,8 +61,14 @@ def info(meldung):
 def debug(meldung):
     return logger.debug(meldung) 
 
+def logfile(meldung):
+    return logger.debug(meldung) 
+
+def kritisch(meldung):
+    return logger.critical(meldung)
+
 def zeilenweise(msg):
-    #funktioniert nicht sooo gut!
+    #funktioniert noch nicht sooo gut!
     temp = str(msg)
     temparray = temp.split('\\n')
     retVal=""

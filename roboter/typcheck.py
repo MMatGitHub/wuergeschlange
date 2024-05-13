@@ -1,4 +1,6 @@
 import os
+import protokolliere
+
 def verified_int(i):
     if not isinstance(i, int):
         protokolliere.fehler(f"i: Variable {i} is *not* an integer")
