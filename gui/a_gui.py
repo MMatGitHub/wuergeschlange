@@ -9,7 +9,7 @@ dasFenster = tk.Tk()
 dasFenster.title("Welcome to Tkinter after; sudo apt install python3-tk")
 # Create a StringVar to associate with the label
 text_var = tk.StringVar()
-text_var.set("Starte in Terminal not vscode")
+text_var.set("Welcome to Wuergfull")
 
 # Create the label widget with all options
 label = tk.Label(dasFenster, 
